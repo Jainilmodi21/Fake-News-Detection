@@ -1,6 +1,6 @@
 import os
 # Disable GPU usage for TensorFlow to avoid CUDA errors in environments without GPU support
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+
 
 import pickle
 import json
@@ -10,6 +10,7 @@ import numpy as np
 from datetime import datetime
 import nltk
 import tensorflow as tf
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 from tensorflow import keras
 from transformers import BertTokenizer, TFBertForSequenceClassification
 from sklearn.feature_extraction.text import TfidfVectorizer
