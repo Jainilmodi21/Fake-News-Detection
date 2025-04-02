@@ -31,6 +31,11 @@ def scheduled_retrain():
 # ------------------------------
 # Flask Routes
 # ------------------------------
+
+@app.before_first_request
+def startup():
+    print(f"Server bound to 0.0.0.0:{PORT}")
+    
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -65,4 +70,4 @@ def retrain():
 
 if __name__ == '__main__':
     print("Starting server on port", PORT)
-    serve(app, host="0.0.0.0", port=PORT)
+    app.run(host='0.0.0.0', port=PORT)

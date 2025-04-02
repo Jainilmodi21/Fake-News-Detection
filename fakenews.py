@@ -21,6 +21,7 @@ import urllib.parse
 from dotenv import load_dotenv
 load_dotenv()
 
+import os
 import nltk
 nltk.data.path.append(os.path.join(os.getcwd(), "nltk_data"))
 # Download necessary NLTK resources
