@@ -21,6 +21,8 @@ import urllib.parse
 from dotenv import load_dotenv
 load_dotenv()
 
+import nltk
+nltk.data.path.append(os.path.join(os.getcwd(), "nltk_data"))
 # Download necessary NLTK resources
 nltk.download('punkt')
 nltk.download('wordnet')
@@ -84,6 +86,16 @@ def preprocess_text(text):
 # ------------------------------
 # Model & Tokenizer Initialization
 # ------------------------------
+# Add at the top of load_or_initialize_model()
+from transformers import BertTokenizer, TFBertForSequenceClassification
+
+# Pre-download model weights during initial deployment
+try:
+    BertTokenizer.from_pretrained('bert-base-uncased', local_files_only=True)
+    TFBertForSequenceClassification.from_pretrained('bert-base-uncased', local_files_only=True)
+except:
+    BertTokenizer.from_pretrained('bert-base-uncased', local_files_only=False)
+    TFBertForSequenceClassification.from_pretrained('bert-base-uncased', local_files_only=False)
 def load_or_initialize_model():
     config_path = os.path.join(MODEL_SAVE_PATH, "config.json")
     if os.path.exists(MODEL_SAVE_PATH) and os.path.exists(config_path):
